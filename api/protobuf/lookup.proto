@@ -4,8 +4,6 @@ package lookup;
 
 option go_package = "/lookup";
 
-import "google/protobuf/empty.proto";
-
 service LookupService {
   rpc Lookup(LookupRequest) returns (LookupResponse);
 }
