@@ -1,1 +1,19 @@
 syntax = "proto3";
+
+package lookup;
+
+option go_package = "/lookup";
+
+import "google/protobuf/empty.proto";
+
+service LookupService {
+  rpc Lookup(LookupRequest) returns (LookupResponse);
+}
+
+message LookupRequest {
+  string domain = 1;
+}
+
+message LookupResponse {
+  string domain_type = 1;
+}
