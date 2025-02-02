@@ -18,12 +18,10 @@ func NewHTTPServer(cfg *Config, opts ...Option) *Server {
 		addr: fmt.Sprintf("%s:%s", cfg.Host, cfg.Port),
 	}
 
-	server.srv.HideBanner = true
-	server.srv.HidePort = true
-
 	for _, opt := range opts {
 		opt(server)
 	}
+
 	return server
 }
 

@@ -1,11 +1,11 @@
 package customerrors
 
-type ExternalApiError struct {
+type ExternalError struct {
 	Code     int
 	Message  string
 	HttpCode int
 }
 
-func (e ExternalApiError) Error() string {
+func (e ExternalError) Error() string {
 	return e.Message
 }
