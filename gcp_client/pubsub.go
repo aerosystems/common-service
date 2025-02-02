@@ -1,4 +1,4 @@
-package gcp
+package gcpclient
 
 import (
 	"cloud.google.com/go/pubsub"
