@@ -1,4 +1,4 @@
-package gormconn
+package gormclient
 
 import (
 	"github.com/sirupsen/logrus"
