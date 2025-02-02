@@ -2,7 +2,7 @@ package httpserver
 
 import (
 	"errors"
-	customerrors "github.com/aerosystems/common-service/internal/custom_errors"
+	customerrors "github.com/aerosystems/common-service/custom_errors"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
