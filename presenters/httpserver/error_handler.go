@@ -2,7 +2,7 @@ package httpserver
 
 import (
 	"errors"
-	customerrors "github.com/aerosystems/common-service/custom_errors"
+	"github.com/aerosystems/common-service/customerrors"
 	"github.com/labstack/echo/v4"
 	"net/http"
 )
@@ -22,8 +22,8 @@ func (h *EchoError) Handler(err error, c echo.Context) {
 	var code int
 	var message map[string]interface{}
 	var httpError *echo.HTTPError
-	var intErr customerrors.InternalApiError
-	var extErr customerrors.ExternalApiError
+	var intErr customerrors.InternalError
+	var extErr customerrors.ExternalError
 
 	switch {
 	case errors.As(err, &httpError):

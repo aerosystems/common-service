@@ -2,12 +2,12 @@ package customerrors
 
 import "google.golang.org/grpc/codes"
 
-type InternalApiError struct {
+type InternalError struct {
 	Message  string
 	HttpCode int
 	GrpcCode codes.Code
 }
 
-func (e InternalApiError) Error() string {
+func (e InternalError) Error() string {
 	return e.Message
 }
