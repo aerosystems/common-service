@@ -1,4 +1,4 @@
-package http
+package customerrors
 
 import "google.golang.org/grpc/codes"
 
@@ -9,15 +9,5 @@ type InternalApiError struct {
 }
 
 func (e InternalApiError) Error() string {
-	return e.Message
-}
-
-type ExternalApiError struct {
-	Code     int
-	Message  string
-	HttpCode int
-}
-
-func (e ExternalApiError) Error() string {
 	return e.Message
 }

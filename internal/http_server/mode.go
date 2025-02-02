@@ -1,4 +1,4 @@
-package http
+package httpserver
 
 type EchoHandlerMode struct {
 	slug string
