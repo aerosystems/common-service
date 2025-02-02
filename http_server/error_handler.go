@@ -11,7 +11,7 @@ type EchoError struct {
 	mode EchoHandlerMode
 }
 
-func NewEchoErrorHandler(mode string) echo.HTTPErrorHandler {
+func NewCustomErrorHandler(mode string) echo.HTTPErrorHandler {
 	e := EchoError{
 		mode: NewEchoHandlerMode(mode),
 	}
