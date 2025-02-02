@@ -16,8 +16,9 @@ var (
 	once     sync.Once
 )
 
-func NewPostgresDB(e *logrus.Entry, postgresDSN string) *gorm.DB {
+func NewPostgresDB(log *logrus.Logger, postgresDSN string) *gorm.DB {
 	once.Do(func() {
+		e := logrus.NewEntry(log)
 		gormLogger := gormv2logrus.NewGormlog(gormv2logrus.WithLogrusEntry(e))
 		gormLogger.LogMode(logger.Info)
 		gormLogger.SlowThreshold = 100 * time.Millisecond
@@ -33,7 +34,7 @@ func NewPostgresDB(e *logrus.Entry, postgresDSN string) *gorm.DB {
 				e.Logger.Info("PostgreSQL not ready...")
 				count++
 			} else {
-				e.Logger.Info("Connected to database!")
+				e.Logger.Info("Connected to PostgreSQL.")
 				instance = db
 				return
 			}
