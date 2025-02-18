@@ -24,5 +24,7 @@ message InspectResponse {
 
 message CreateAccessRequest {
   string project_token = 1;
-  google.protobuf.Timestamp access_time = 2;
+  string subscription_type = 2;
+  google.protobuf.Timestamp access_time = 3;
+  int64 access_count = 4;
 }
