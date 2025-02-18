@@ -17,6 +17,7 @@ message CreateDefaultProjectRequest {
 
 message CreateDefaultProjectResponse {
   string project_uuid = 1;
+  string project_token = 2;
 }
 
 message DeleteProjectRequest {
