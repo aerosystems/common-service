@@ -4,8 +4,12 @@ package checkmail;
 
 option go_package = "/checkmail";
 
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
 service CheckmailService {
   rpc Inspect(InspectRequest) returns (InspectResponse);
+  rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
 }
 
 message InspectRequest {
@@ -16,4 +20,9 @@ message InspectRequest {
 
 message InspectResponse {
   string domain_type = 1;
+}
+
+message CreateAccessRequest {
+  string project_token = 1;
+  google.protobuf.Timestamp access_time = 2;
 }

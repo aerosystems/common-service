@@ -11,6 +11,7 @@ import (
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -19,7 +20,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	CheckmailService_Inspect_FullMethodName = "/checkmail.CheckmailService/Inspect"
+	CheckmailService_Inspect_FullMethodName      = "/checkmail.CheckmailService/Inspect"
+	CheckmailService_CreateAccess_FullMethodName = "/checkmail.CheckmailService/CreateAccess"
 )
 
 // CheckmailServiceClient is the client API for CheckmailService service.
@@ -27,6 +29,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type CheckmailServiceClient interface {
 	Inspect(ctx context.Context, in *InspectRequest, opts ...grpc.CallOption) (*InspectResponse, error)
+	CreateAccess(ctx context.Context, in *CreateAccessRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type checkmailServiceClient struct {
@@ -47,11 +50,22 @@ func (c *checkmailServiceClient) Inspect(ctx context.Context, in *InspectRequest
 	return out, nil
 }
 
+func (c *checkmailServiceClient) CreateAccess(ctx context.Context, in *CreateAccessRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(emptypb.Empty)
+	err := c.cc.Invoke(ctx, CheckmailService_CreateAccess_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CheckmailServiceServer is the server API for CheckmailService service.
 // All implementations must embed UnimplementedCheckmailServiceServer
 // for forward compatibility.
 type CheckmailServiceServer interface {
 	Inspect(context.Context, *InspectRequest) (*InspectResponse, error)
+	CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedCheckmailServiceServer()
 }
 
@@ -64,6 +78,9 @@ type UnimplementedCheckmailServiceServer struct{}
 
 func (UnimplementedCheckmailServiceServer) Inspect(context.Context, *InspectRequest) (*InspectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Inspect not implemented")
+}
+func (UnimplementedCheckmailServiceServer) CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateAccess not implemented")
 }
 func (UnimplementedCheckmailServiceServer) mustEmbedUnimplementedCheckmailServiceServer() {}
 func (UnimplementedCheckmailServiceServer) testEmbeddedByValue()                          {}
@@ -104,6 +121,24 @@ func _CheckmailService_Inspect_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CheckmailService_CreateAccess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateAccessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CheckmailServiceServer).CreateAccess(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CheckmailService_CreateAccess_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CheckmailServiceServer).CreateAccess(ctx, req.(*CreateAccessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CheckmailService_ServiceDesc is the grpc.ServiceDesc for CheckmailService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +149,10 @@ var CheckmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Inspect",
 			Handler:    _CheckmailService_Inspect_Handler,
+		},
+		{
+			MethodName: "CreateAccess",
+			Handler:    _CheckmailService_CreateAccess_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
