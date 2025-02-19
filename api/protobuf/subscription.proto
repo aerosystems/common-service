@@ -15,12 +15,13 @@ service SubscriptionService {
 
 message CreateFreeTrialSubscriptionRequest {
   string customer_uuid = 1;
-  google.protobuf.Timestamp access_time = 2;
-  int64 access_count = 3;
 }
 
 message CreateFreeTrialSubscriptionResponse {
   string subscription_uuid = 1;
+  string subscription_type = 2;
+  google.protobuf.Timestamp access_time = 3;
+  int64 access_count = 4;
 }
 
 message GetSubscriptionRequest {
