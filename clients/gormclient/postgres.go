@@ -1,11 +1,12 @@
 package gormclient
 
 import (
+	"sync"
+	"time"
+
 	"github.com/sirupsen/logrus"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
-	"sync"
-	"time"
 
 	gormv2logrus "github.com/thomas-tacquet/gormv2-logrus"
 	"gorm.io/driver/postgres"

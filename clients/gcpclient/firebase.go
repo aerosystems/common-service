@@ -3,9 +3,10 @@ package gcpclient
 import (
 	"context"
 	"errors"
+	"fmt"
+
 	firebase "firebase.google.com/go/v4"
 	"firebase.google.com/go/v4/auth"
-	"fmt"
 	"google.golang.org/api/option"
 )
 

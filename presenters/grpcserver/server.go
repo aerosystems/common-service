@@ -2,12 +2,13 @@ package grpcserver
 
 import (
 	"fmt"
+	"net"
+
 	grpclogrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
 	grpcctxtags "github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/pkg/errors"
 	"github.com/sirupsen/logrus"
 	"google.golang.org/grpc"
-	"net"
 )
 
 type Server struct {

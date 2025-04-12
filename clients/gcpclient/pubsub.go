@@ -1,11 +1,12 @@
 package gcpclient
 
 import (
-	"cloud.google.com/go/pubsub"
 	"context"
 	"encoding/json"
-	"google.golang.org/api/option"
 	"os"
+
+	"cloud.google.com/go/pubsub"
+	"google.golang.org/api/option"
 )
 
 type PubSubClient struct {

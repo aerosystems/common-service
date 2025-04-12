@@ -2,9 +2,11 @@ package httpserver
 
 import (
 	"errors"
-	"github.com/aerosystems/common-service/customerrors"
-	"github.com/labstack/echo/v4"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
+
+	"github.com/aerosystems/common-service/customerrors"
 )
 
 type EchoError struct {
