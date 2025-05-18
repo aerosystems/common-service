@@ -2,7 +2,6 @@ package httpserver
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
@@ -16,7 +15,7 @@ type Server struct {
 func NewHTTPServer(cfg *Config, opts ...Option) *Server {
 	server := &Server{
 		srv:  echo.New(),
-		addr: fmt.Sprintf("%s:%s", cfg.Host, cfg.Port),
+		addr: cfg.Addr,
 	}
 
 	for _, opt := range opts {

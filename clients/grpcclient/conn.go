@@ -19,7 +19,7 @@ const (
 	defaultRetryBackoffInitial = 500 * time.Millisecond
 )
 
-func NewGRPCConn(address string) (*grpc.ClientConn, error) {
+func NewGRPCConn(cfg *Config) (*grpc.ClientConn, error) {
 	opts := []grpc.DialOption{
 		grpc.WithKeepaliveParams(keepalive.ClientParameters{
 			Time:                defaultKeepaliveTime,
@@ -33,11 +33,11 @@ func NewGRPCConn(address string) (*grpc.ClientConn, error) {
 		)),
 	}
 
-	if address[len(address)-4:] == ":443" {
+	if cfg.Addr[len(cfg.Addr)-4:] == ":443" {
 		opts = append(opts, grpc.WithTransportCredentials(credentials.NewTLS(&tls.Config{})))
 	} else {
 		opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	}
 
-	return grpc.NewClient(address, opts...)
+	return grpc.NewClient(cfg.Addr, opts...)
 }

@@ -10,13 +10,13 @@ import (
 	"google.golang.org/api/option"
 )
 
-func NewFirebaseClient(projectId string, serviceAccountFilePath string) (*auth.Client, error) {
+func NewFirebaseClient(cfg *FirebaseConfig) (*auth.Client, error) {
 	var opts []option.ClientOption
-	if file := serviceAccountFilePath; file != "" {
+	if file := cfg.CredentialsPath; file != "" {
 		opts = append(opts, option.WithCredentialsFile(file))
 	}
 
-	config := &firebase.Config{ProjectID: projectId}
+	config := &firebase.Config{ProjectID: cfg.ProjectId}
 	firebaseApp, err := firebase.NewApp(context.Background(), config, opts...)
 	if err != nil {
 		return nil, fmt.Errorf("error initializing app: %w\n", err)

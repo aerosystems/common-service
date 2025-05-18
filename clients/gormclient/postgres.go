@@ -17,16 +17,17 @@ var (
 	once     sync.Once
 )
 
-func NewPostgresDB(log *logrus.Logger, postgresDSN string) *gorm.DB {
+func NewPostgresDB(log *logrus.Logger, cfg *Config) *gorm.DB {
 	once.Do(func() {
 		e := logrus.NewEntry(log)
+
 		gormLogger := gormv2logrus.NewGormlog(gormv2logrus.WithLogrusEntry(e))
 		gormLogger.LogMode(logger.Info)
 		gormLogger.SlowThreshold = 100 * time.Millisecond
 		gormLogger.SkipErrRecordNotFound = true
 		count := 0
 		for {
-			db, err := gorm.Open(postgres.Open(postgresDSN), &gorm.Config{
+			db, err := gorm.Open(postgres.Open(cfg.DSN), &gorm.Config{
 				Logger:                 gormLogger,
 				SkipDefaultTransaction: true,
 				PrepareStmt:            true,
