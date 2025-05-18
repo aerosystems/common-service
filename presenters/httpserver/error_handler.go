@@ -2,18 +2,20 @@ package httpserver
 
 import (
 	"errors"
-	"github.com/aerosystems/common-service/customerrors"
-	"github.com/labstack/echo/v4"
 	"net/http"
+
+	"github.com/labstack/echo/v4"
+
+	"github.com/aerosystems/common-service/customerrors"
 )
 
 type EchoError struct {
-	mode EchoHandlerMode
+	debug bool
 }
 
-func NewCustomErrorHandler(mode string) echo.HTTPErrorHandler {
+func NewCustomErrorHandler(debug bool) echo.HTTPErrorHandler {
 	e := EchoError{
-		mode: NewEchoHandlerMode(mode),
+		debug: debug,
 	}
 	return e.Handler
 }
@@ -46,7 +48,7 @@ func (h *EchoError) Handler(err error, c echo.Context) {
 	default:
 		code = http.StatusInternalServerError
 		message = map[string]interface{}{"message": "Internal Server Error"}
-		if h.mode == DevelopmentMode {
+		if h.debug {
 			message = map[string]interface{}{"message": err.Error()}
 		}
 	}

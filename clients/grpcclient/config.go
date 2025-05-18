@@ -1,4 +1,4 @@
-package httpserver
+package grpcclient
 
 type Config struct {
 	Addr string

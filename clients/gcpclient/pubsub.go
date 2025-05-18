@@ -1,30 +1,17 @@
 package gcpclient
 
 import (
-	"cloud.google.com/go/pubsub"
 	"context"
 	"encoding/json"
-	"google.golang.org/api/option"
 	"os"
+
+	"cloud.google.com/go/pubsub"
+	"google.golang.org/api/option"
 )
 
 type PubSubClient struct {
 	Client *pubsub.Client
 	Ctx    context.Context
-}
-
-type Config struct {
-	Type                    string `json:"type"`
-	ProjectId               string `json:"project_id"`
-	PrivateKeyId            string `json:"private_key_id"`
-	PrivateKey              string `json:"private_key"`
-	ClientEmail             string `json:"client_email"`
-	ClientId                string `json:"client_id"`
-	AuthURI                 string `json:"auth_uri"`
-	TokenURI                string `json:"token_uri"`
-	AuthProviderX509CertURL string `json:"auth_provider_x509_cert_url"`
-	ClientX509CertURL       string `json:"client_x509_cert_url"`
-	UniverseDomain          string `json:"universe_domain"`
 }
 
 func NewPubSubClient(projectId string) (*PubSubClient, error) {
@@ -47,7 +34,7 @@ func NewPubSubClientWithAuth(credentialsPath string) (*PubSubClient, error) {
 		return nil, err
 	}
 
-	var config Config
+	var config PubSubConfig
 	err = json.Unmarshal(configData, &config)
 	if err != nil {
 		return nil, err
