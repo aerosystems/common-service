@@ -1,7 +1,6 @@
 package grpcserver
 
 import (
-	"fmt"
 	"net"
 
 	grpclogrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
@@ -34,7 +33,7 @@ func NewGRPCServer(
 	return &Server{
 		srv:  grpcServer,
 		log:  log,
-		addr: fmt.Sprintf("%s:%s", cfg.Host, cfg.Port),
+		addr: cfg.Addr,
 	}
 }
 
