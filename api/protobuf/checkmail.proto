@@ -2,10 +2,11 @@ syntax = "proto3";
 
 package checkmail;
 
-option go_package = "/checkmail";
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/checkmail;checkmail";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
+import "enums.proto";
 
 service CheckmailService {
   rpc Inspect(InspectRequest) returns (InspectResponse);
@@ -14,12 +15,12 @@ service CheckmailService {
 
 message InspectRequest {
   string data = 1;
-  string client_ip = 2;
-  string project_token = 3;
+  optional string client_ip = 2;
+  optional string project_token = 3;
 }
 
 message InspectResponse {
-  string domain_type = 1;
+  DomainType domain_type = 1;
 }
 
 message CreateAccessRequest {

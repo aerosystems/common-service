@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package subscription;
 
-option go_package = "/subscription";
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/subscription;subscription";
 
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";

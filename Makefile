@@ -5,7 +5,7 @@
 #go install google.golang.org/protobuf/cmd/protoc-gen-go@latest
 #go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 proto:
-	@protoc --go_out=gen/protobuf --go-grpc_out=gen/protobuf -I api/protobuf $(shell find api/protobuf -name "*.proto")
+	@protoc --go_out=paths=import:gen/protobuf --go-grpc_out=paths=import:gen/protobuf -I api/protobuf $(shell find api/protobuf -name "*.proto")
 
 ##lint-fix: runs linter with fix some issues
 lint-fix:

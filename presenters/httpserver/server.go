@@ -13,8 +13,11 @@ type Server struct {
 }
 
 func NewHTTPServer(cfg *Config, opts ...Option) *Server {
+	e := echo.New()
+	e.HideBanner = true
+
 	server := &Server{
-		srv:  echo.New(),
+		srv:  e,
 		addr: cfg.Addr,
 	}
 

@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package project;
 
-option go_package = "/project";
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/project;project";
 
 import "google/protobuf/empty.proto";
 
