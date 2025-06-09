@@ -2,7 +2,9 @@ syntax = "proto3";
 
 package lookup;
 
-option go_package = "/lookup";
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/lookup;lookup";
+
+import "enums.proto";
 
 service LookupService {
   rpc Lookup(LookupRequest) returns (LookupResponse);
@@ -13,5 +15,5 @@ message LookupRequest {
 }
 
 message LookupResponse {
-  string domain_type = 1;
+  DomainType domain_type = 1;
 }

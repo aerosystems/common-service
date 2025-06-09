@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/enums;enums";
+
+enum DomainType {
+  DOMAIN_TYPE_UNSPECIFIED = 0;
+  DOMAIN_TYPE_UNDEFINED = 1;
+  DOMAIN_TYPE_BLACKLIST = 2;
+  DOMAIN_TYPE_WHITELIST = 3;
+}
