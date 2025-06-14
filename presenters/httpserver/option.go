@@ -16,6 +16,12 @@ func WithRouter(httpMethod string, path string, handler echo.HandlerFunc, middle
 	}
 }
 
+func WithStatic(path string, root string) Option {
+	return func(s *Server) {
+		s.srv.Static(path, root)
+	}
+}
+
 func WithCustomErrorHandler(handler func(err error, c echo.Context)) Option {
 	return func(s *Server) {
 		s.srv.HTTPErrorHandler = handler
