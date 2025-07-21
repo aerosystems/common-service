@@ -31,6 +31,8 @@ func NewGRPCConn(cfg *Config) (*grpc.ClientConn, error) {
 			grpc_retry.WithBackoff(grpc_retry.BackoffExponential(defaultRetryBackoffInitial)),
 			grpc_retry.WithCodes(codes.Unavailable, codes.ResourceExhausted, codes.DeadlineExceeded),
 		)),
+		grpc.WithDefaultCallOptions(grpc.MaxCallRecvMsgSize(20 * 1024 * 1024)), // 20 MB
+		grpc.WithDefaultCallOptions(grpc.MaxCallSendMsgSize(20 * 1024 * 1024)), // 20 MB
 	}
 
 	if len(cfg.Addr) > 4 && cfg.Addr[len(cfg.Addr)-4:] == ":443" {
