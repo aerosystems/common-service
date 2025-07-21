@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package common;
+
+option go_package = "github.com/aerosystems/common-service/gen/protobuf/common;common";
+
+
+message Pagination {
+  int32 limit = 1;
+  int32 offset = 2;
+}
