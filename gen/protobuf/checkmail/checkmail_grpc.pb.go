@@ -7,11 +7,12 @@
 package checkmail
 
 import (
-	context "context"
-	grpc "google.golang.org/grpc"
-	codes "google.golang.org/grpc/codes"
-	status "google.golang.org/grpc/status"
-	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	"context"
+
+	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -22,6 +23,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	CheckmailService_Inspect_FullMethodName      = "/checkmail.CheckmailService/Inspect"
 	CheckmailService_CreateAccess_FullMethodName = "/checkmail.CheckmailService/CreateAccess"
+	CheckmailService_GetDomains_FullMethodName   = "/checkmail.CheckmailService/GetDomains"
 )
 
 // CheckmailServiceClient is the client API for CheckmailService service.
@@ -30,6 +32,7 @@ const (
 type CheckmailServiceClient interface {
 	Inspect(ctx context.Context, in *InspectRequest, opts ...grpc.CallOption) (*InspectResponse, error)
 	CreateAccess(ctx context.Context, in *CreateAccessRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetDomains(ctx context.Context, in *GetDomainsRequest, opts ...grpc.CallOption) (*GetDomainsResponse, error)
 }
 
 type checkmailServiceClient struct {
@@ -60,12 +63,23 @@ func (c *checkmailServiceClient) CreateAccess(ctx context.Context, in *CreateAcc
 	return out, nil
 }
 
+func (c *checkmailServiceClient) GetDomains(ctx context.Context, in *GetDomainsRequest, opts ...grpc.CallOption) (*GetDomainsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDomainsResponse)
+	err := c.cc.Invoke(ctx, CheckmailService_GetDomains_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CheckmailServiceServer is the server API for CheckmailService service.
 // All implementations must embed UnimplementedCheckmailServiceServer
 // for forward compatibility.
 type CheckmailServiceServer interface {
 	Inspect(context.Context, *InspectRequest) (*InspectResponse, error)
 	CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error)
+	GetDomains(context.Context, *GetDomainsRequest) (*GetDomainsResponse, error)
 	mustEmbedUnimplementedCheckmailServiceServer()
 }
 
@@ -81,6 +95,9 @@ func (UnimplementedCheckmailServiceServer) Inspect(context.Context, *InspectRequ
 }
 func (UnimplementedCheckmailServiceServer) CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccess not implemented")
+}
+func (UnimplementedCheckmailServiceServer) GetDomains(context.Context, *GetDomainsRequest) (*GetDomainsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDomains not implemented")
 }
 func (UnimplementedCheckmailServiceServer) mustEmbedUnimplementedCheckmailServiceServer() {}
 func (UnimplementedCheckmailServiceServer) testEmbeddedByValue()                          {}
@@ -139,6 +156,24 @@ func _CheckmailService_CreateAccess_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CheckmailService_GetDomains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDomainsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CheckmailServiceServer).GetDomains(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CheckmailService_GetDomains_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CheckmailServiceServer).GetDomains(ctx, req.(*GetDomainsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // CheckmailService_ServiceDesc is the grpc.ServiceDesc for CheckmailService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -153,6 +188,10 @@ var CheckmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAccess",
 			Handler:    _CheckmailService_CreateAccess_Handler,
+		},
+		{
+			MethodName: "GetDomains",
+			Handler:    _CheckmailService_GetDomains_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -7,10 +7,12 @@ option go_package = "github.com/aerosystems/common-service/gen/protobuf/checkmai
 import "google/protobuf/empty.proto";
 import "google/protobuf/timestamp.proto";
 import "enums.proto";
+import "common.proto";
 
 service CheckmailService {
   rpc Inspect(InspectRequest) returns (InspectResponse);
   rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
+  rpc GetDomains(GetDomainsRequest) returns (GetDomainsResponse);
 }
 
 message InspectRequest {
@@ -28,4 +30,25 @@ message CreateAccessRequest {
   string subscription_type = 2;
   google.protobuf.Timestamp access_time = 3;
   int64 access_count = 4;
+}
+
+message GetDomainsRequest {
+  optional Filter filter = 1;
+  optional common.Pagination pagination = 2;
+}
+
+message GetDomainsResponse {
+  repeated Domain domains = 1;
+  int32 total_count = 2;
+}
+
+message Filter {
+  DomainType domain_type = 1;
+}
+
+message Domain {
+  string name = 1;
+  DomainType type = 2;
+  google.protobuf.Timestamp created_at = 3;
+  google.protobuf.Timestamp updated_at = 4;
 }
