@@ -118,6 +118,94 @@ func (x *CreateDefaultProjectResponse) GetProjectToken() string {
 	return ""
 }
 
+type GetProjectRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	CustomerUuid  string                 `protobuf:"bytes,1,opt,name=customer_uuid,json=customerUuid,proto3" json:"customer_uuid,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProjectRequest) Reset() {
+	*x = GetProjectRequest{}
+	mi := &file_project_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProjectRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProjectRequest) ProtoMessage() {}
+
+func (x *GetProjectRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_project_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProjectRequest.ProtoReflect.Descriptor instead.
+func (*GetProjectRequest) Descriptor() ([]byte, []int) {
+	return file_project_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *GetProjectRequest) GetCustomerUuid() string {
+	if x != nil {
+		return x.CustomerUuid
+	}
+	return ""
+}
+
+type GetProjectsResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Projects      []*Project             `protobuf:"bytes,1,rep,name=projects,proto3" json:"projects,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetProjectsResponse) Reset() {
+	*x = GetProjectsResponse{}
+	mi := &file_project_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetProjectsResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetProjectsResponse) ProtoMessage() {}
+
+func (x *GetProjectsResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_project_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetProjectsResponse.ProtoReflect.Descriptor instead.
+func (*GetProjectsResponse) Descriptor() ([]byte, []int) {
+	return file_project_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetProjectsResponse) GetProjects() []*Project {
+	if x != nil {
+		return x.Projects
+	}
+	return nil
+}
+
 type DeleteProjectRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	ProjectUuid   string                 `protobuf:"bytes,1,opt,name=project_uuid,json=projectUuid,proto3" json:"project_uuid,omitempty"`
@@ -127,7 +215,7 @@ type DeleteProjectRequest struct {
 
 func (x *DeleteProjectRequest) Reset() {
 	*x = DeleteProjectRequest{}
-	mi := &file_project_proto_msgTypes[2]
+	mi := &file_project_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -139,7 +227,7 @@ func (x *DeleteProjectRequest) String() string {
 func (*DeleteProjectRequest) ProtoMessage() {}
 
 func (x *DeleteProjectRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_project_proto_msgTypes[2]
+	mi := &file_project_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -152,12 +240,80 @@ func (x *DeleteProjectRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteProjectRequest.ProtoReflect.Descriptor instead.
 func (*DeleteProjectRequest) Descriptor() ([]byte, []int) {
-	return file_project_proto_rawDescGZIP(), []int{2}
+	return file_project_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *DeleteProjectRequest) GetProjectUuid() string {
 	if x != nil {
 		return x.ProjectUuid
+	}
+	return ""
+}
+
+type Project struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	CustomerUuid  string                 `protobuf:"bytes,2,opt,name=customer_uuid,json=customerUuid,proto3" json:"customer_uuid,omitempty"`
+	Name          string                 `protobuf:"bytes,3,opt,name=name,proto3" json:"name,omitempty"`
+	Token         string                 `protobuf:"bytes,4,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Project) Reset() {
+	*x = Project{}
+	mi := &file_project_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Project) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Project) ProtoMessage() {}
+
+func (x *Project) ProtoReflect() protoreflect.Message {
+	mi := &file_project_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Project.ProtoReflect.Descriptor instead.
+func (*Project) Descriptor() ([]byte, []int) {
+	return file_project_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Project) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *Project) GetCustomerUuid() string {
+	if x != nil {
+		return x.CustomerUuid
+	}
+	return ""
+}
+
+func (x *Project) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Project) GetToken() string {
+	if x != nil {
+		return x.Token
 	}
 	return ""
 }
@@ -171,11 +327,21 @@ const file_project_proto_rawDesc = "" +
 	"\rcustomer_uuid\x18\x01 \x01(\tR\fcustomerUuid\"f\n" +
 	"\x1cCreateDefaultProjectResponse\x12!\n" +
 	"\fproject_uuid\x18\x01 \x01(\tR\vprojectUuid\x12#\n" +
-	"\rproject_token\x18\x02 \x01(\tR\fprojectToken\"9\n" +
+	"\rproject_token\x18\x02 \x01(\tR\fprojectToken\"8\n" +
+	"\x11GetProjectRequest\x12#\n" +
+	"\rcustomer_uuid\x18\x01 \x01(\tR\fcustomerUuid\"C\n" +
+	"\x13GetProjectsResponse\x12,\n" +
+	"\bprojects\x18\x01 \x03(\v2\x10.project.ProjectR\bprojects\"9\n" +
 	"\x14DeleteProjectRequest\x12!\n" +
-	"\fproject_uuid\x18\x01 \x01(\tR\vprojectUuid2\xbd\x01\n" +
+	"\fproject_uuid\x18\x01 \x01(\tR\vprojectUuid\"l\n" +
+	"\aProject\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\x12#\n" +
+	"\rcustomer_uuid\x18\x02 \x01(\tR\fcustomerUuid\x12\x12\n" +
+	"\x04name\x18\x03 \x01(\tR\x04name\x12\x14\n" +
+	"\x05token\x18\x04 \x01(\tR\x05token2\x86\x02\n" +
 	"\x0eProjectService\x12c\n" +
-	"\x14CreateDefaultProject\x12$.project.CreateDefaultProjectRequest\x1a%.project.CreateDefaultProjectResponse\x12F\n" +
+	"\x14CreateDefaultProject\x12$.project.CreateDefaultProjectRequest\x1a%.project.CreateDefaultProjectResponse\x12G\n" +
+	"\vGetProjects\x12\x1a.project.GetProjectRequest\x1a\x1c.project.GetProjectsResponse\x12F\n" +
 	"\rDeleteProject\x12\x1d.project.DeleteProjectRequest\x1a\x16.google.protobuf.EmptyBDZBgithub.com/aerosystems/common-service/gen/protobuf/project;projectb\x06proto3"
 
 var (
@@ -190,23 +356,29 @@ func file_project_proto_rawDescGZIP() []byte {
 	return file_project_proto_rawDescData
 }
 
-var file_project_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_project_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_project_proto_goTypes = []any{
 	(*CreateDefaultProjectRequest)(nil),  // 0: project.CreateDefaultProjectRequest
 	(*CreateDefaultProjectResponse)(nil), // 1: project.CreateDefaultProjectResponse
-	(*DeleteProjectRequest)(nil),         // 2: project.DeleteProjectRequest
-	(*emptypb.Empty)(nil),                // 3: google.protobuf.Empty
+	(*GetProjectRequest)(nil),            // 2: project.GetProjectRequest
+	(*GetProjectsResponse)(nil),          // 3: project.GetProjectsResponse
+	(*DeleteProjectRequest)(nil),         // 4: project.DeleteProjectRequest
+	(*Project)(nil),                      // 5: project.Project
+	(*emptypb.Empty)(nil),                // 6: google.protobuf.Empty
 }
 var file_project_proto_depIdxs = []int32{
-	0, // 0: project.ProjectService.CreateDefaultProject:input_type -> project.CreateDefaultProjectRequest
-	2, // 1: project.ProjectService.DeleteProject:input_type -> project.DeleteProjectRequest
-	1, // 2: project.ProjectService.CreateDefaultProject:output_type -> project.CreateDefaultProjectResponse
-	3, // 3: project.ProjectService.DeleteProject:output_type -> google.protobuf.Empty
-	2, // [2:4] is the sub-list for method output_type
-	0, // [0:2] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	5, // 0: project.GetProjectsResponse.projects:type_name -> project.Project
+	0, // 1: project.ProjectService.CreateDefaultProject:input_type -> project.CreateDefaultProjectRequest
+	2, // 2: project.ProjectService.GetProjects:input_type -> project.GetProjectRequest
+	4, // 3: project.ProjectService.DeleteProject:input_type -> project.DeleteProjectRequest
+	1, // 4: project.ProjectService.CreateDefaultProject:output_type -> project.CreateDefaultProjectResponse
+	3, // 5: project.ProjectService.GetProjects:output_type -> project.GetProjectsResponse
+	6, // 6: project.ProjectService.DeleteProject:output_type -> google.protobuf.Empty
+	4, // [4:7] is the sub-list for method output_type
+	1, // [1:4] is the sub-list for method input_type
+	1, // [1:1] is the sub-list for extension type_name
+	1, // [1:1] is the sub-list for extension extendee
+	0, // [0:1] is the sub-list for field type_name
 }
 
 func init() { file_project_proto_init() }
@@ -220,7 +392,7 @@ func file_project_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_project_proto_rawDesc), len(file_project_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
