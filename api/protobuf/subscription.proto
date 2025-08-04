@@ -29,11 +29,18 @@ message GetSubscriptionRequest {
 }
 
 message GetSubscriptionResponse {
-  string subscription_type = 1;
-  google.protobuf.Timestamp access_time = 2;
-  int64 access_count = 3;
+  Subscription subscription = 1;
 }
 
 message DeleteSubscriptionRequest {
   string subscription_uuid = 1;
+}
+
+message Subscription {
+  string uuid = 1;
+  string customer_uuid = 2;
+  string type = 3;
+  string duration = 4; // e.g., "30 days", "1 year"
+  google.protobuf.Timestamp access_time = 5;
+  int64 access_count = 6;
 }

@@ -12,13 +12,14 @@ import "common.proto";
 service CheckmailService {
   rpc Inspect(InspectRequest) returns (InspectResponse);
   rpc CreateAccess(CreateAccessRequest) returns (google.protobuf.Empty);
+  rpc GetAccess(GetAccessRequest) returns (GetAccessResponse);
   rpc GetDomains(GetDomainsRequest) returns (GetDomainsResponse);
 }
 
 message InspectRequest {
   string data = 1;
   optional string client_ip = 2;
-  optional string project_token = 3;
+  optional string token = 3;
 }
 
 message InspectResponse {
@@ -26,10 +27,18 @@ message InspectResponse {
 }
 
 message CreateAccessRequest {
-  string project_token = 1;
+  string token = 1;
   string subscription_type = 2;
   google.protobuf.Timestamp access_time = 3;
   int64 access_count = 4;
+}
+
+message GetAccessRequest {
+  string token = 1;
+}
+
+message GetAccessResponse {
+  Access access = 1;
 }
 
 message GetDomainsRequest {
@@ -44,6 +53,13 @@ message GetDomainsResponse {
 
 message Filter {
   DomainType domain_type = 1;
+}
+
+message Access {
+  string token = 1;
+  string subscription_type = 2;
+  int64 remain = 3;
+  google.protobuf.Timestamp access_time = 4;
 }
 
 message Domain {

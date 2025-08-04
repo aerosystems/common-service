@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	ProjectService_CreateDefaultProject_FullMethodName = "/project.ProjectService/CreateDefaultProject"
+	ProjectService_GetProjects_FullMethodName          = "/project.ProjectService/GetProjects"
 	ProjectService_DeleteProject_FullMethodName        = "/project.ProjectService/DeleteProject"
 )
 
@@ -29,6 +30,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ProjectServiceClient interface {
 	CreateDefaultProject(ctx context.Context, in *CreateDefaultProjectRequest, opts ...grpc.CallOption) (*CreateDefaultProjectResponse, error)
+	GetProjects(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectsResponse, error)
 	DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -50,6 +52,16 @@ func (c *projectServiceClient) CreateDefaultProject(ctx context.Context, in *Cre
 	return out, nil
 }
 
+func (c *projectServiceClient) GetProjects(ctx context.Context, in *GetProjectRequest, opts ...grpc.CallOption) (*GetProjectsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetProjectsResponse)
+	err := c.cc.Invoke(ctx, ProjectService_GetProjects_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *projectServiceClient) DeleteProject(ctx context.Context, in *DeleteProjectRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
@@ -65,6 +77,7 @@ func (c *projectServiceClient) DeleteProject(ctx context.Context, in *DeleteProj
 // for forward compatibility.
 type ProjectServiceServer interface {
 	CreateDefaultProject(context.Context, *CreateDefaultProjectRequest) (*CreateDefaultProjectResponse, error)
+	GetProjects(context.Context, *GetProjectRequest) (*GetProjectsResponse, error)
 	DeleteProject(context.Context, *DeleteProjectRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedProjectServiceServer()
 }
@@ -78,6 +91,9 @@ type UnimplementedProjectServiceServer struct{}
 
 func (UnimplementedProjectServiceServer) CreateDefaultProject(context.Context, *CreateDefaultProjectRequest) (*CreateDefaultProjectResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateDefaultProject not implemented")
+}
+func (UnimplementedProjectServiceServer) GetProjects(context.Context, *GetProjectRequest) (*GetProjectsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetProjects not implemented")
 }
 func (UnimplementedProjectServiceServer) DeleteProject(context.Context, *DeleteProjectRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteProject not implemented")
@@ -121,6 +137,24 @@ func _ProjectService_CreateDefaultProject_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ProjectService_GetProjects_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetProjectRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ProjectServiceServer).GetProjects(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ProjectService_GetProjects_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ProjectServiceServer).GetProjects(ctx, req.(*GetProjectRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _ProjectService_DeleteProject_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteProjectRequest)
 	if err := dec(in); err != nil {
@@ -149,6 +183,10 @@ var ProjectService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateDefaultProject",
 			Handler:    _ProjectService_CreateDefaultProject_Handler,
+		},
+		{
+			MethodName: "GetProjects",
+			Handler:    _ProjectService_GetProjects_Handler,
 		},
 		{
 			MethodName: "DeleteProject",

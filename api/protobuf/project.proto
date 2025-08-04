@@ -8,6 +8,7 @@ import "google/protobuf/empty.proto";
 
 service ProjectService {
   rpc CreateDefaultProject(CreateDefaultProjectRequest) returns (CreateDefaultProjectResponse);
+  rpc GetProjects(GetProjectRequest) returns (GetProjectsResponse);
   rpc DeleteProject(DeleteProjectRequest) returns (google.protobuf.Empty);
 }
 
@@ -20,6 +21,21 @@ message CreateDefaultProjectResponse {
   string project_token = 2;
 }
 
+message GetProjectRequest {
+  string customer_uuid = 1;
+}
+
+message GetProjectsResponse {
+  repeated Project projects = 1;
+}
+
 message DeleteProjectRequest {
   string project_uuid = 1;
+}
+
+message Project {
+  string uuid = 1;
+  string customer_uuid = 2;
+  string name = 3;
+  string token = 4;
 }

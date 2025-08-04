@@ -180,12 +180,10 @@ func (x *GetSubscriptionRequest) GetCustomerUuid() string {
 }
 
 type GetSubscriptionResponse struct {
-	state            protoimpl.MessageState `protogen:"open.v1"`
-	SubscriptionType string                 `protobuf:"bytes,1,opt,name=subscription_type,json=subscriptionType,proto3" json:"subscription_type,omitempty"`
-	AccessTime       *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=access_time,json=accessTime,proto3" json:"access_time,omitempty"`
-	AccessCount      int64                  `protobuf:"varint,3,opt,name=access_count,json=accessCount,proto3" json:"access_count,omitempty"`
-	unknownFields    protoimpl.UnknownFields
-	sizeCache        protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Subscription  *Subscription          `protobuf:"bytes,1,opt,name=subscription,proto3" json:"subscription,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *GetSubscriptionResponse) Reset() {
@@ -218,25 +216,11 @@ func (*GetSubscriptionResponse) Descriptor() ([]byte, []int) {
 	return file_subscription_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *GetSubscriptionResponse) GetSubscriptionType() string {
+func (x *GetSubscriptionResponse) GetSubscription() *Subscription {
 	if x != nil {
-		return x.SubscriptionType
-	}
-	return ""
-}
-
-func (x *GetSubscriptionResponse) GetAccessTime() *timestamppb.Timestamp {
-	if x != nil {
-		return x.AccessTime
+		return x.Subscription
 	}
 	return nil
-}
-
-func (x *GetSubscriptionResponse) GetAccessCount() int64 {
-	if x != nil {
-		return x.AccessCount
-	}
-	return 0
 }
 
 type DeleteSubscriptionRequest struct {
@@ -283,6 +267,90 @@ func (x *DeleteSubscriptionRequest) GetSubscriptionUuid() string {
 	return ""
 }
 
+type Subscription struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Uuid          string                 `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+	CustomerUuid  string                 `protobuf:"bytes,2,opt,name=customer_uuid,json=customerUuid,proto3" json:"customer_uuid,omitempty"`
+	Type          string                 `protobuf:"bytes,3,opt,name=type,proto3" json:"type,omitempty"`
+	Duration      string                 `protobuf:"bytes,4,opt,name=duration,proto3" json:"duration,omitempty"` // e.g., "30 days", "1 year"
+	AccessTime    *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=access_time,json=accessTime,proto3" json:"access_time,omitempty"`
+	AccessCount   int64                  `protobuf:"varint,6,opt,name=access_count,json=accessCount,proto3" json:"access_count,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Subscription) Reset() {
+	*x = Subscription{}
+	mi := &file_subscription_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Subscription) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Subscription) ProtoMessage() {}
+
+func (x *Subscription) ProtoReflect() protoreflect.Message {
+	mi := &file_subscription_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Subscription.ProtoReflect.Descriptor instead.
+func (*Subscription) Descriptor() ([]byte, []int) {
+	return file_subscription_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *Subscription) GetUuid() string {
+	if x != nil {
+		return x.Uuid
+	}
+	return ""
+}
+
+func (x *Subscription) GetCustomerUuid() string {
+	if x != nil {
+		return x.CustomerUuid
+	}
+	return ""
+}
+
+func (x *Subscription) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *Subscription) GetDuration() string {
+	if x != nil {
+		return x.Duration
+	}
+	return ""
+}
+
+func (x *Subscription) GetAccessTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AccessTime
+	}
+	return nil
+}
+
+func (x *Subscription) GetAccessCount() int64 {
+	if x != nil {
+		return x.AccessCount
+	}
+	return 0
+}
+
 var File_subscription_proto protoreflect.FileDescriptor
 
 const file_subscription_proto_rawDesc = "" +
@@ -297,14 +365,19 @@ const file_subscription_proto_rawDesc = "" +
 	"accessTime\x12!\n" +
 	"\faccess_count\x18\x04 \x01(\x03R\vaccessCount\"=\n" +
 	"\x16GetSubscriptionRequest\x12#\n" +
-	"\rcustomer_uuid\x18\x01 \x01(\tR\fcustomerUuid\"\xa6\x01\n" +
-	"\x17GetSubscriptionResponse\x12+\n" +
-	"\x11subscription_type\x18\x01 \x01(\tR\x10subscriptionType\x12;\n" +
-	"\vaccess_time\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
-	"accessTime\x12!\n" +
-	"\faccess_count\x18\x03 \x01(\x03R\vaccessCount\"H\n" +
+	"\rcustomer_uuid\x18\x01 \x01(\tR\fcustomerUuid\"Y\n" +
+	"\x17GetSubscriptionResponse\x12>\n" +
+	"\fsubscription\x18\x01 \x01(\v2\x1a.subscription.SubscriptionR\fsubscription\"H\n" +
 	"\x19DeleteSubscriptionRequest\x12+\n" +
-	"\x11subscription_uuid\x18\x01 \x01(\tR\x10subscriptionUuid2\xd1\x02\n" +
+	"\x11subscription_uuid\x18\x01 \x01(\tR\x10subscriptionUuid\"\xd7\x01\n" +
+	"\fSubscription\x12\x12\n" +
+	"\x04uuid\x18\x01 \x01(\tR\x04uuid\x12#\n" +
+	"\rcustomer_uuid\x18\x02 \x01(\tR\fcustomerUuid\x12\x12\n" +
+	"\x04type\x18\x03 \x01(\tR\x04type\x12\x1a\n" +
+	"\bduration\x18\x04 \x01(\tR\bduration\x12;\n" +
+	"\vaccess_time\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"accessTime\x12!\n" +
+	"\faccess_count\x18\x06 \x01(\x03R\vaccessCount2\xd1\x02\n" +
 	"\x13SubscriptionService\x12\x82\x01\n" +
 	"\x1bCreateFreeTrialSubscription\x120.subscription.CreateFreeTrialSubscriptionRequest\x1a1.subscription.CreateFreeTrialSubscriptionResponse\x12^\n" +
 	"\x0fGetSubscription\x12$.subscription.GetSubscriptionRequest\x1a%.subscription.GetSubscriptionResponse\x12U\n" +
@@ -322,30 +395,32 @@ func file_subscription_proto_rawDescGZIP() []byte {
 	return file_subscription_proto_rawDescData
 }
 
-var file_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_subscription_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_subscription_proto_goTypes = []any{
 	(*CreateFreeTrialSubscriptionRequest)(nil),  // 0: subscription.CreateFreeTrialSubscriptionRequest
 	(*CreateFreeTrialSubscriptionResponse)(nil), // 1: subscription.CreateFreeTrialSubscriptionResponse
 	(*GetSubscriptionRequest)(nil),              // 2: subscription.GetSubscriptionRequest
 	(*GetSubscriptionResponse)(nil),             // 3: subscription.GetSubscriptionResponse
 	(*DeleteSubscriptionRequest)(nil),           // 4: subscription.DeleteSubscriptionRequest
-	(*timestamppb.Timestamp)(nil),               // 5: google.protobuf.Timestamp
-	(*emptypb.Empty)(nil),                       // 6: google.protobuf.Empty
+	(*Subscription)(nil),                        // 5: subscription.Subscription
+	(*timestamppb.Timestamp)(nil),               // 6: google.protobuf.Timestamp
+	(*emptypb.Empty)(nil),                       // 7: google.protobuf.Empty
 }
 var file_subscription_proto_depIdxs = []int32{
-	5, // 0: subscription.CreateFreeTrialSubscriptionResponse.access_time:type_name -> google.protobuf.Timestamp
-	5, // 1: subscription.GetSubscriptionResponse.access_time:type_name -> google.protobuf.Timestamp
-	0, // 2: subscription.SubscriptionService.CreateFreeTrialSubscription:input_type -> subscription.CreateFreeTrialSubscriptionRequest
-	2, // 3: subscription.SubscriptionService.GetSubscription:input_type -> subscription.GetSubscriptionRequest
-	4, // 4: subscription.SubscriptionService.DeleteSubscription:input_type -> subscription.DeleteSubscriptionRequest
-	1, // 5: subscription.SubscriptionService.CreateFreeTrialSubscription:output_type -> subscription.CreateFreeTrialSubscriptionResponse
-	3, // 6: subscription.SubscriptionService.GetSubscription:output_type -> subscription.GetSubscriptionResponse
-	6, // 7: subscription.SubscriptionService.DeleteSubscription:output_type -> google.protobuf.Empty
-	5, // [5:8] is the sub-list for method output_type
-	2, // [2:5] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	6, // 0: subscription.CreateFreeTrialSubscriptionResponse.access_time:type_name -> google.protobuf.Timestamp
+	5, // 1: subscription.GetSubscriptionResponse.subscription:type_name -> subscription.Subscription
+	6, // 2: subscription.Subscription.access_time:type_name -> google.protobuf.Timestamp
+	0, // 3: subscription.SubscriptionService.CreateFreeTrialSubscription:input_type -> subscription.CreateFreeTrialSubscriptionRequest
+	2, // 4: subscription.SubscriptionService.GetSubscription:input_type -> subscription.GetSubscriptionRequest
+	4, // 5: subscription.SubscriptionService.DeleteSubscription:input_type -> subscription.DeleteSubscriptionRequest
+	1, // 6: subscription.SubscriptionService.CreateFreeTrialSubscription:output_type -> subscription.CreateFreeTrialSubscriptionResponse
+	3, // 7: subscription.SubscriptionService.GetSubscription:output_type -> subscription.GetSubscriptionResponse
+	7, // 8: subscription.SubscriptionService.DeleteSubscription:output_type -> google.protobuf.Empty
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_subscription_proto_init() }
@@ -359,7 +434,7 @@ func file_subscription_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_subscription_proto_rawDesc), len(file_subscription_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
