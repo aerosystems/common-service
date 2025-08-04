@@ -7,17 +7,15 @@
 package checkmail
 
 import (
-	"reflect"
-	"sync"
-	"unsafe"
-
-	"google.golang.org/protobuf/reflect/protoreflect"
-	"google.golang.org/protobuf/runtime/protoimpl"
-	"google.golang.org/protobuf/types/known/emptypb"
-	"google.golang.org/protobuf/types/known/timestamppb"
-
-	"github.com/aerosystems/common-service/gen/protobuf/common"
-	"github.com/aerosystems/common-service/gen/protobuf/enums"
+	common "github.com/aerosystems/common-service/gen/protobuf/common"
+	enums "github.com/aerosystems/common-service/gen/protobuf/enums"
+	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
+	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	reflect "reflect"
+	sync "sync"
+	unsafe "unsafe"
 )
 
 const (
@@ -31,7 +29,7 @@ type InspectRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Data          string                 `protobuf:"bytes,1,opt,name=data,proto3" json:"data,omitempty"`
 	ClientIp      *string                `protobuf:"bytes,2,opt,name=client_ip,json=clientIp,proto3,oneof" json:"client_ip,omitempty"`
-	ProjectToken  *string                `protobuf:"bytes,3,opt,name=project_token,json=projectToken,proto3,oneof" json:"project_token,omitempty"`
+	Token         *string                `protobuf:"bytes,3,opt,name=token,proto3,oneof" json:"token,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -80,9 +78,9 @@ func (x *InspectRequest) GetClientIp() string {
 	return ""
 }
 
-func (x *InspectRequest) GetProjectToken() string {
-	if x != nil && x.ProjectToken != nil {
-		return *x.ProjectToken
+func (x *InspectRequest) GetToken() string {
+	if x != nil && x.Token != nil {
+		return *x.Token
 	}
 	return ""
 }
@@ -133,7 +131,7 @@ func (x *InspectResponse) GetDomainType() enums.DomainType {
 
 type CreateAccessRequest struct {
 	state            protoimpl.MessageState `protogen:"open.v1"`
-	ProjectToken     string                 `protobuf:"bytes,1,opt,name=project_token,json=projectToken,proto3" json:"project_token,omitempty"`
+	Token            string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
 	SubscriptionType string                 `protobuf:"bytes,2,opt,name=subscription_type,json=subscriptionType,proto3" json:"subscription_type,omitempty"`
 	AccessTime       *timestamppb.Timestamp `protobuf:"bytes,3,opt,name=access_time,json=accessTime,proto3" json:"access_time,omitempty"`
 	AccessCount      int64                  `protobuf:"varint,4,opt,name=access_count,json=accessCount,proto3" json:"access_count,omitempty"`
@@ -171,9 +169,9 @@ func (*CreateAccessRequest) Descriptor() ([]byte, []int) {
 	return file_checkmail_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *CreateAccessRequest) GetProjectToken() string {
+func (x *CreateAccessRequest) GetToken() string {
 	if x != nil {
-		return x.ProjectToken
+		return x.Token
 	}
 	return ""
 }
@@ -199,6 +197,94 @@ func (x *CreateAccessRequest) GetAccessCount() int64 {
 	return 0
 }
 
+type GetAccessRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAccessRequest) Reset() {
+	*x = GetAccessRequest{}
+	mi := &file_checkmail_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAccessRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAccessRequest) ProtoMessage() {}
+
+func (x *GetAccessRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_checkmail_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAccessRequest.ProtoReflect.Descriptor instead.
+func (*GetAccessRequest) Descriptor() ([]byte, []int) {
+	return file_checkmail_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *GetAccessRequest) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+type GetAccessResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Access        *Access                `protobuf:"bytes,1,opt,name=access,proto3" json:"access,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetAccessResponse) Reset() {
+	*x = GetAccessResponse{}
+	mi := &file_checkmail_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetAccessResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetAccessResponse) ProtoMessage() {}
+
+func (x *GetAccessResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_checkmail_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetAccessResponse.ProtoReflect.Descriptor instead.
+func (*GetAccessResponse) Descriptor() ([]byte, []int) {
+	return file_checkmail_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *GetAccessResponse) GetAccess() *Access {
+	if x != nil {
+		return x.Access
+	}
+	return nil
+}
+
 type GetDomainsRequest struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Filter        *Filter                `protobuf:"bytes,1,opt,name=filter,proto3,oneof" json:"filter,omitempty"`
@@ -209,7 +295,7 @@ type GetDomainsRequest struct {
 
 func (x *GetDomainsRequest) Reset() {
 	*x = GetDomainsRequest{}
-	mi := &file_checkmail_proto_msgTypes[3]
+	mi := &file_checkmail_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -221,7 +307,7 @@ func (x *GetDomainsRequest) String() string {
 func (*GetDomainsRequest) ProtoMessage() {}
 
 func (x *GetDomainsRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_checkmail_proto_msgTypes[3]
+	mi := &file_checkmail_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -234,7 +320,7 @@ func (x *GetDomainsRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDomainsRequest.ProtoReflect.Descriptor instead.
 func (*GetDomainsRequest) Descriptor() ([]byte, []int) {
-	return file_checkmail_proto_rawDescGZIP(), []int{3}
+	return file_checkmail_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetDomainsRequest) GetFilter() *Filter {
@@ -261,7 +347,7 @@ type GetDomainsResponse struct {
 
 func (x *GetDomainsResponse) Reset() {
 	*x = GetDomainsResponse{}
-	mi := &file_checkmail_proto_msgTypes[4]
+	mi := &file_checkmail_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -273,7 +359,7 @@ func (x *GetDomainsResponse) String() string {
 func (*GetDomainsResponse) ProtoMessage() {}
 
 func (x *GetDomainsResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_checkmail_proto_msgTypes[4]
+	mi := &file_checkmail_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -286,7 +372,7 @@ func (x *GetDomainsResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDomainsResponse.ProtoReflect.Descriptor instead.
 func (*GetDomainsResponse) Descriptor() ([]byte, []int) {
-	return file_checkmail_proto_rawDescGZIP(), []int{4}
+	return file_checkmail_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetDomainsResponse) GetDomains() []*Domain {
@@ -312,7 +398,7 @@ type Filter struct {
 
 func (x *Filter) Reset() {
 	*x = Filter{}
-	mi := &file_checkmail_proto_msgTypes[5]
+	mi := &file_checkmail_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -324,7 +410,7 @@ func (x *Filter) String() string {
 func (*Filter) ProtoMessage() {}
 
 func (x *Filter) ProtoReflect() protoreflect.Message {
-	mi := &file_checkmail_proto_msgTypes[5]
+	mi := &file_checkmail_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -337,7 +423,7 @@ func (x *Filter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Filter.ProtoReflect.Descriptor instead.
 func (*Filter) Descriptor() ([]byte, []int) {
-	return file_checkmail_proto_rawDescGZIP(), []int{5}
+	return file_checkmail_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *Filter) GetDomainType() enums.DomainType {
@@ -345,6 +431,74 @@ func (x *Filter) GetDomainType() enums.DomainType {
 		return x.DomainType
 	}
 	return enums.DomainType(0)
+}
+
+type Access struct {
+	state            protoimpl.MessageState `protogen:"open.v1"`
+	Token            string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
+	SubscriptionType string                 `protobuf:"bytes,2,opt,name=subscription_type,json=subscriptionType,proto3" json:"subscription_type,omitempty"`
+	Remain           int64                  `protobuf:"varint,3,opt,name=remain,proto3" json:"remain,omitempty"`
+	AccessTime       *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=access_time,json=accessTime,proto3" json:"access_time,omitempty"`
+	unknownFields    protoimpl.UnknownFields
+	sizeCache        protoimpl.SizeCache
+}
+
+func (x *Access) Reset() {
+	*x = Access{}
+	mi := &file_checkmail_proto_msgTypes[8]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Access) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Access) ProtoMessage() {}
+
+func (x *Access) ProtoReflect() protoreflect.Message {
+	mi := &file_checkmail_proto_msgTypes[8]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Access.ProtoReflect.Descriptor instead.
+func (*Access) Descriptor() ([]byte, []int) {
+	return file_checkmail_proto_rawDescGZIP(), []int{8}
+}
+
+func (x *Access) GetToken() string {
+	if x != nil {
+		return x.Token
+	}
+	return ""
+}
+
+func (x *Access) GetSubscriptionType() string {
+	if x != nil {
+		return x.SubscriptionType
+	}
+	return ""
+}
+
+func (x *Access) GetRemain() int64 {
+	if x != nil {
+		return x.Remain
+	}
+	return 0
+}
+
+func (x *Access) GetAccessTime() *timestamppb.Timestamp {
+	if x != nil {
+		return x.AccessTime
+	}
+	return nil
 }
 
 type Domain struct {
@@ -359,7 +513,7 @@ type Domain struct {
 
 func (x *Domain) Reset() {
 	*x = Domain{}
-	mi := &file_checkmail_proto_msgTypes[6]
+	mi := &file_checkmail_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -371,7 +525,7 @@ func (x *Domain) String() string {
 func (*Domain) ProtoMessage() {}
 
 func (x *Domain) ProtoReflect() protoreflect.Message {
-	mi := &file_checkmail_proto_msgTypes[6]
+	mi := &file_checkmail_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -384,7 +538,7 @@ func (x *Domain) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Domain.ProtoReflect.Descriptor instead.
 func (*Domain) Descriptor() ([]byte, []int) {
-	return file_checkmail_proto_rawDescGZIP(), []int{6}
+	return file_checkmail_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *Domain) GetName() string {
@@ -419,23 +573,27 @@ var File_checkmail_proto protoreflect.FileDescriptor
 
 const file_checkmail_proto_rawDesc = "" +
 	"\n" +
-	"\x0fcheckmail.proto\x12\tcheckmail\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\venums.proto\x1a\fcommon.proto\"\x90\x01\n" +
+	"\x0fcheckmail.proto\x12\tcheckmail\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\venums.proto\x1a\fcommon.proto\"y\n" +
 	"\x0eInspectRequest\x12\x12\n" +
 	"\x04data\x18\x01 \x01(\tR\x04data\x12 \n" +
-	"\tclient_ip\x18\x02 \x01(\tH\x00R\bclientIp\x88\x01\x01\x12(\n" +
-	"\rproject_token\x18\x03 \x01(\tH\x01R\fprojectToken\x88\x01\x01B\f\n" +
+	"\tclient_ip\x18\x02 \x01(\tH\x00R\bclientIp\x88\x01\x01\x12\x19\n" +
+	"\x05token\x18\x03 \x01(\tH\x01R\x05token\x88\x01\x01B\f\n" +
 	"\n" +
-	"_client_ipB\x10\n" +
-	"\x0e_project_token\"?\n" +
+	"_client_ipB\b\n" +
+	"\x06_token\"?\n" +
 	"\x0fInspectResponse\x12,\n" +
 	"\vdomain_type\x18\x01 \x01(\x0e2\v.DomainTypeR\n" +
-	"domainType\"\xc7\x01\n" +
-	"\x13CreateAccessRequest\x12#\n" +
-	"\rproject_token\x18\x01 \x01(\tR\fprojectToken\x12+\n" +
+	"domainType\"\xb8\x01\n" +
+	"\x13CreateAccessRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12+\n" +
 	"\x11subscription_type\x18\x02 \x01(\tR\x10subscriptionType\x12;\n" +
 	"\vaccess_time\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
 	"accessTime\x12!\n" +
-	"\faccess_count\x18\x04 \x01(\x03R\vaccessCount\"\x96\x01\n" +
+	"\faccess_count\x18\x04 \x01(\x03R\vaccessCount\"(\n" +
+	"\x10GetAccessRequest\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\">\n" +
+	"\x11GetAccessResponse\x12)\n" +
+	"\x06access\x18\x01 \x01(\v2\x11.checkmail.AccessR\x06access\"\x96\x01\n" +
 	"\x11GetDomainsRequest\x12.\n" +
 	"\x06filter\x18\x01 \x01(\v2\x11.checkmail.FilterH\x00R\x06filter\x88\x01\x01\x127\n" +
 	"\n" +
@@ -449,17 +607,24 @@ const file_checkmail_proto_rawDesc = "" +
 	"totalCount\"6\n" +
 	"\x06Filter\x12,\n" +
 	"\vdomain_type\x18\x01 \x01(\x0e2\v.DomainTypeR\n" +
-	"domainType\"\xb3\x01\n" +
+	"domainType\"\xa0\x01\n" +
+	"\x06Access\x12\x14\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token\x12+\n" +
+	"\x11subscription_type\x18\x02 \x01(\tR\x10subscriptionType\x12\x16\n" +
+	"\x06remain\x18\x03 \x01(\x03R\x06remain\x12;\n" +
+	"\vaccess_time\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\n" +
+	"accessTime\"\xb3\x01\n" +
 	"\x06Domain\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1f\n" +
 	"\x04type\x18\x02 \x01(\x0e2\v.DomainTypeR\x04type\x129\n" +
 	"\n" +
 	"created_at\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2\xe7\x01\n" +
+	"updated_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt2\xaf\x02\n" +
 	"\x10CheckmailService\x12@\n" +
 	"\aInspect\x12\x19.checkmail.InspectRequest\x1a\x1a.checkmail.InspectResponse\x12F\n" +
-	"\fCreateAccess\x12\x1e.checkmail.CreateAccessRequest\x1a\x16.google.protobuf.Empty\x12I\n" +
+	"\fCreateAccess\x12\x1e.checkmail.CreateAccessRequest\x1a\x16.google.protobuf.Empty\x12F\n" +
+	"\tGetAccess\x12\x1b.checkmail.GetAccessRequest\x1a\x1c.checkmail.GetAccessResponse\x12I\n" +
 	"\n" +
 	"GetDomains\x12\x1c.checkmail.GetDomainsRequest\x1a\x1d.checkmail.GetDomainsResponseBHZFgithub.com/aerosystems/common-service/gen/protobuf/checkmail;checkmailb\x06proto3"
 
@@ -475,41 +640,48 @@ func file_checkmail_proto_rawDescGZIP() []byte {
 	return file_checkmail_proto_rawDescData
 }
 
-var file_checkmail_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
+var file_checkmail_proto_msgTypes = make([]protoimpl.MessageInfo, 10)
 var file_checkmail_proto_goTypes = []any{
 	(*InspectRequest)(nil),        // 0: checkmail.InspectRequest
 	(*InspectResponse)(nil),       // 1: checkmail.InspectResponse
 	(*CreateAccessRequest)(nil),   // 2: checkmail.CreateAccessRequest
-	(*GetDomainsRequest)(nil),     // 3: checkmail.GetDomainsRequest
-	(*GetDomainsResponse)(nil),    // 4: checkmail.GetDomainsResponse
-	(*Filter)(nil),                // 5: checkmail.Filter
-	(*Domain)(nil),                // 6: checkmail.Domain
-	(enums.DomainType)(0),         // 7: DomainType
-	(*timestamppb.Timestamp)(nil), // 8: google.protobuf.Timestamp
-	(*common.Pagination)(nil),     // 9: common.Pagination
-	(*emptypb.Empty)(nil),         // 10: google.protobuf.Empty
+	(*GetAccessRequest)(nil),      // 3: checkmail.GetAccessRequest
+	(*GetAccessResponse)(nil),     // 4: checkmail.GetAccessResponse
+	(*GetDomainsRequest)(nil),     // 5: checkmail.GetDomainsRequest
+	(*GetDomainsResponse)(nil),    // 6: checkmail.GetDomainsResponse
+	(*Filter)(nil),                // 7: checkmail.Filter
+	(*Access)(nil),                // 8: checkmail.Access
+	(*Domain)(nil),                // 9: checkmail.Domain
+	(enums.DomainType)(0),         // 10: DomainType
+	(*timestamppb.Timestamp)(nil), // 11: google.protobuf.Timestamp
+	(*common.Pagination)(nil),     // 12: common.Pagination
+	(*emptypb.Empty)(nil),         // 13: google.protobuf.Empty
 }
 var file_checkmail_proto_depIdxs = []int32{
-	7,  // 0: checkmail.InspectResponse.domain_type:type_name -> DomainType
-	8,  // 1: checkmail.CreateAccessRequest.access_time:type_name -> google.protobuf.Timestamp
-	5,  // 2: checkmail.GetDomainsRequest.filter:type_name -> checkmail.Filter
-	9,  // 3: checkmail.GetDomainsRequest.pagination:type_name -> common.Pagination
-	6,  // 4: checkmail.GetDomainsResponse.domains:type_name -> checkmail.Domain
-	7,  // 5: checkmail.Filter.domain_type:type_name -> DomainType
-	7,  // 6: checkmail.Domain.type:type_name -> DomainType
-	8,  // 7: checkmail.Domain.created_at:type_name -> google.protobuf.Timestamp
-	8,  // 8: checkmail.Domain.updated_at:type_name -> google.protobuf.Timestamp
-	0,  // 9: checkmail.CheckmailService.Inspect:input_type -> checkmail.InspectRequest
-	2,  // 10: checkmail.CheckmailService.CreateAccess:input_type -> checkmail.CreateAccessRequest
-	3,  // 11: checkmail.CheckmailService.GetDomains:input_type -> checkmail.GetDomainsRequest
-	1,  // 12: checkmail.CheckmailService.Inspect:output_type -> checkmail.InspectResponse
-	10, // 13: checkmail.CheckmailService.CreateAccess:output_type -> google.protobuf.Empty
-	4,  // 14: checkmail.CheckmailService.GetDomains:output_type -> checkmail.GetDomainsResponse
-	12, // [12:15] is the sub-list for method output_type
-	9,  // [9:12] is the sub-list for method input_type
-	9,  // [9:9] is the sub-list for extension type_name
-	9,  // [9:9] is the sub-list for extension extendee
-	0,  // [0:9] is the sub-list for field type_name
+	10, // 0: checkmail.InspectResponse.domain_type:type_name -> DomainType
+	11, // 1: checkmail.CreateAccessRequest.access_time:type_name -> google.protobuf.Timestamp
+	8,  // 2: checkmail.GetAccessResponse.access:type_name -> checkmail.Access
+	7,  // 3: checkmail.GetDomainsRequest.filter:type_name -> checkmail.Filter
+	12, // 4: checkmail.GetDomainsRequest.pagination:type_name -> common.Pagination
+	9,  // 5: checkmail.GetDomainsResponse.domains:type_name -> checkmail.Domain
+	10, // 6: checkmail.Filter.domain_type:type_name -> DomainType
+	11, // 7: checkmail.Access.access_time:type_name -> google.protobuf.Timestamp
+	10, // 8: checkmail.Domain.type:type_name -> DomainType
+	11, // 9: checkmail.Domain.created_at:type_name -> google.protobuf.Timestamp
+	11, // 10: checkmail.Domain.updated_at:type_name -> google.protobuf.Timestamp
+	0,  // 11: checkmail.CheckmailService.Inspect:input_type -> checkmail.InspectRequest
+	2,  // 12: checkmail.CheckmailService.CreateAccess:input_type -> checkmail.CreateAccessRequest
+	3,  // 13: checkmail.CheckmailService.GetAccess:input_type -> checkmail.GetAccessRequest
+	5,  // 14: checkmail.CheckmailService.GetDomains:input_type -> checkmail.GetDomainsRequest
+	1,  // 15: checkmail.CheckmailService.Inspect:output_type -> checkmail.InspectResponse
+	13, // 16: checkmail.CheckmailService.CreateAccess:output_type -> google.protobuf.Empty
+	4,  // 17: checkmail.CheckmailService.GetAccess:output_type -> checkmail.GetAccessResponse
+	6,  // 18: checkmail.CheckmailService.GetDomains:output_type -> checkmail.GetDomainsResponse
+	15, // [15:19] is the sub-list for method output_type
+	11, // [11:15] is the sub-list for method input_type
+	11, // [11:11] is the sub-list for extension type_name
+	11, // [11:11] is the sub-list for extension extendee
+	0,  // [0:11] is the sub-list for field type_name
 }
 
 func init() { file_checkmail_proto_init() }
@@ -518,14 +690,14 @@ func file_checkmail_proto_init() {
 		return
 	}
 	file_checkmail_proto_msgTypes[0].OneofWrappers = []any{}
-	file_checkmail_proto_msgTypes[3].OneofWrappers = []any{}
+	file_checkmail_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_checkmail_proto_rawDesc), len(file_checkmail_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   7,
+			NumMessages:   10,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

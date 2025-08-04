@@ -7,12 +7,11 @@
 package checkmail
 
 import (
-	"context"
-
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb"
+	context "context"
+	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
+	emptypb "google.golang.org/protobuf/types/known/emptypb"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -23,6 +22,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	CheckmailService_Inspect_FullMethodName      = "/checkmail.CheckmailService/Inspect"
 	CheckmailService_CreateAccess_FullMethodName = "/checkmail.CheckmailService/CreateAccess"
+	CheckmailService_GetAccess_FullMethodName    = "/checkmail.CheckmailService/GetAccess"
 	CheckmailService_GetDomains_FullMethodName   = "/checkmail.CheckmailService/GetDomains"
 )
 
@@ -32,6 +32,7 @@ const (
 type CheckmailServiceClient interface {
 	Inspect(ctx context.Context, in *InspectRequest, opts ...grpc.CallOption) (*InspectResponse, error)
 	CreateAccess(ctx context.Context, in *CreateAccessRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	GetAccess(ctx context.Context, in *GetAccessRequest, opts ...grpc.CallOption) (*GetAccessResponse, error)
 	GetDomains(ctx context.Context, in *GetDomainsRequest, opts ...grpc.CallOption) (*GetDomainsResponse, error)
 }
 
@@ -63,6 +64,16 @@ func (c *checkmailServiceClient) CreateAccess(ctx context.Context, in *CreateAcc
 	return out, nil
 }
 
+func (c *checkmailServiceClient) GetAccess(ctx context.Context, in *GetAccessRequest, opts ...grpc.CallOption) (*GetAccessResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAccessResponse)
+	err := c.cc.Invoke(ctx, CheckmailService_GetAccess_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *checkmailServiceClient) GetDomains(ctx context.Context, in *GetDomainsRequest, opts ...grpc.CallOption) (*GetDomainsResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetDomainsResponse)
@@ -79,6 +90,7 @@ func (c *checkmailServiceClient) GetDomains(ctx context.Context, in *GetDomainsR
 type CheckmailServiceServer interface {
 	Inspect(context.Context, *InspectRequest) (*InspectResponse, error)
 	CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error)
+	GetAccess(context.Context, *GetAccessRequest) (*GetAccessResponse, error)
 	GetDomains(context.Context, *GetDomainsRequest) (*GetDomainsResponse, error)
 	mustEmbedUnimplementedCheckmailServiceServer()
 }
@@ -95,6 +107,9 @@ func (UnimplementedCheckmailServiceServer) Inspect(context.Context, *InspectRequ
 }
 func (UnimplementedCheckmailServiceServer) CreateAccess(context.Context, *CreateAccessRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateAccess not implemented")
+}
+func (UnimplementedCheckmailServiceServer) GetAccess(context.Context, *GetAccessRequest) (*GetAccessResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAccess not implemented")
 }
 func (UnimplementedCheckmailServiceServer) GetDomains(context.Context, *GetDomainsRequest) (*GetDomainsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetDomains not implemented")
@@ -156,6 +171,24 @@ func _CheckmailService_CreateAccess_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _CheckmailService_GetAccess_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAccessRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CheckmailServiceServer).GetAccess(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: CheckmailService_GetAccess_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CheckmailServiceServer).GetAccess(ctx, req.(*GetAccessRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _CheckmailService_GetDomains_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetDomainsRequest)
 	if err := dec(in); err != nil {
@@ -188,6 +221,10 @@ var CheckmailService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateAccess",
 			Handler:    _CheckmailService_CreateAccess_Handler,
+		},
+		{
+			MethodName: "GetAccess",
+			Handler:    _CheckmailService_GetAccess_Handler,
 		},
 		{
 			MethodName: "GetDomains",
