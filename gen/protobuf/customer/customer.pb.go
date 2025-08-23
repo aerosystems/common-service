@@ -81,9 +81,9 @@ const file_customer_proto_rawDesc = "" +
 	"\x0ecustomer.proto\x12\bcustomer\x1a\x1bgoogle/protobuf/empty.proto\"P\n" +
 	"\x15CreateCustomerRequest\x12!\n" +
 	"\ffirebase_uid\x18\x01 \x01(\tR\vfirebaseUid\x12\x14\n" +
-	"\x05email\x18\x02 \x01(\tR\x05email2[\n" +
-	"\x0fCustomerService\x12H\n" +
-	"\rCreatCustomer\x12\x1f.customer.CreateCustomerRequest\x1a\x16.google.protobuf.EmptyBFZDgithub.com/aerosystems/common-service/gen/protobuf/customer;customerb\x06proto3"
+	"\x05email\x18\x02 \x01(\tR\x05email2\\\n" +
+	"\x0fCustomerService\x12I\n" +
+	"\x0eCreateCustomer\x12\x1f.customer.CreateCustomerRequest\x1a\x16.google.protobuf.EmptyBFZDgithub.com/aerosystems/common-service/gen/protobuf/customer;customerb\x06proto3"
 
 var (
 	file_customer_proto_rawDescOnce sync.Once
@@ -103,8 +103,8 @@ var file_customer_proto_goTypes = []any{
 	(*emptypb.Empty)(nil),         // 1: google.protobuf.Empty
 }
 var file_customer_proto_depIdxs = []int32{
-	0, // 0: customer.CustomerService.CreatCustomer:input_type -> customer.CreateCustomerRequest
-	1, // 1: customer.CustomerService.CreatCustomer:output_type -> google.protobuf.Empty
+	0, // 0: customer.CustomerService.CreateCustomer:input_type -> customer.CreateCustomerRequest
+	1, // 1: customer.CustomerService.CreateCustomer:output_type -> google.protobuf.Empty
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name

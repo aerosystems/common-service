@@ -7,7 +7,7 @@ option go_package = "github.com/aerosystems/common-service/gen/protobuf/customer
 import "google/protobuf/empty.proto";
 
 service CustomerService {
-  rpc CreatCustomer(CreateCustomerRequest) returns (google.protobuf.Empty);
+  rpc CreateCustomer(CreateCustomerRequest) returns (google.protobuf.Empty);
 }
 
 message CreateCustomerRequest {
