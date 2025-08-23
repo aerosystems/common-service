@@ -1,6 +1,7 @@
 package grpcserver
 
 import (
+	"context"
 	"net"
 
 	grpclogrus "github.com/grpc-ecosystem/go-grpc-middleware/logging/logrus"
@@ -24,6 +25,7 @@ func NewGRPCServer(
 		grpc.ChainUnaryInterceptor(
 			grpcctxtags.UnaryServerInterceptor(grpcctxtags.WithFieldExtractor(grpcctxtags.CodeGenRequestFieldExtractor)),
 			grpclogrus.UnaryServerInterceptor(logrus.NewEntry(log)),
+			errorLoggingInterceptor,
 		),
 		grpc.ChainStreamInterceptor(
 			grpcctxtags.StreamServerInterceptor(grpcctxtags.WithFieldExtractor(grpcctxtags.CodeGenRequestFieldExtractor)),
@@ -51,4 +53,17 @@ func (s *Server) Shutdown() {
 
 func (s *Server) RegisterService(service grpc.ServiceDesc, handler interface{}) {
 	s.srv.RegisterService(&service, handler)
+}
+
+func errorLoggingInterceptor(
+	ctx context.Context,
+	req interface{},
+	info *grpc.UnaryServerInfo,
+	handler grpc.UnaryHandler,
+) (resp interface{}, err error) {
+	resp, err = handler(ctx, req)
+	if err != nil {
+		logrus.WithError(err).WithField("method", info.FullMethod).Error("gRPC call failed")
+	}
+	return resp, err
 }
