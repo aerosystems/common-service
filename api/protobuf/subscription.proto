@@ -11,6 +11,7 @@ service SubscriptionService {
   rpc CreateFreeTrialSubscription(CreateFreeTrialSubscriptionRequest) returns (CreateFreeTrialSubscriptionResponse);
   rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
   rpc DeleteSubscription(DeleteSubscriptionRequest) returns (google.protobuf.Empty);
+  rpc GetSubscriptionPrices(google.protobuf.Empty) returns (GetSubscriptionPricesResponse);
 }
 
 message CreateFreeTrialSubscriptionRequest {
@@ -34,6 +35,16 @@ message GetSubscriptionResponse {
 
 message DeleteSubscriptionRequest {
   string subscription_uuid = 1;
+}
+
+message GetSubscriptionPricesResponse {
+  repeated Price prices = 1;
+}
+
+message Price {
+  string type = 1; // e.g., "free", "startup", "business"
+  string duration = 2; // e.g., "1w", "1m", "1y"
+  double price = 3; // e.g., 9.99
 }
 
 message Subscription {
