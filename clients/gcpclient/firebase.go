@@ -24,7 +24,7 @@ func NewFirebaseClient(cfg *FirebaseConfig) (*auth.Client, error) {
 
 	authClient, err := firebaseApp.Auth(context.Background())
 	if err != nil {
-		return nil, errors.New("unable to create firebase Auth client")
+		return nil, errors.New("unable to create firebase FirebaseAuth client")
 	}
 	return authClient, nil
 }
