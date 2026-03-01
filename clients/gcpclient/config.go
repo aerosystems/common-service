@@ -3,6 +3,15 @@ package gcpclient
 type FirebaseConfig struct {
 	ProjectId       string
 	CredentialsPath string
+	Auth            FirebaseAuth
+}
+
+type FirebaseAuth struct {
+	Emulator FirebaseEmulator
+}
+
+type FirebaseEmulator struct {
+	Host string
 }
 
 type PubSubConfig struct {
